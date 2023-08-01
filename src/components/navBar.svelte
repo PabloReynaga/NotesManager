@@ -2,19 +2,22 @@
 
 </script>
 
-<nav class="nav">
-    <h1 class="title">Notes Manager</h1>
-    <input class="search-input">
-    <button>Switch</button>
-</nav>
-
-
+<h1 class="page-title">Notes Manager</h1>   
+<input class="search-input">
+<button class="button">Switch</button>
 
 <style lang="scss">
-   
-    .title{
+   .page-title{
         display: inline-block;
+        justify-content: right;
+        font-size: 24px;
     }
-
-
+    .search-input{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       position: relative;
+       margin: 5px;
+    }
+  
 </style>

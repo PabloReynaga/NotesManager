@@ -1,8 +1,9 @@
 <script>
+    import Notes from '../components/notesLayout.svelte'
 	
 </script>
 
-<h1>Page</h1>
+<Notes></Notes>
 
 <style lang="scss">
 
