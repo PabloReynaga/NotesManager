@@ -1,14 +1,23 @@
 <script>
     import Note from "./note.svelte";
 
+
 function addNewNote(){
-    
+
 }
+let NoteList =[];
+
+let NoteObj ={
+    title : {},
+    text: {}
+}    
 
 </script>
 <div class="notes-container">
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
     <Note></Note>
+ 
+    
 </div>
 
 <style lang="scss">
