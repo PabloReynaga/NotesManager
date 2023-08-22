@@ -1,33 +1,54 @@
 <script>
-    import Note from "./note.svelte";
+ 
+import NoteComponent from "./note.svelte";
 
+let note = {
+    title: 'title',
+    color: 'red',
+    text: 'text'
+};
 
-function addNewNote(){
+let notes =[];
+let copyNotes =[...notes]
 
+let addNewNote = () =>{
+    const color = randomColorGenerator()
+    const note ={
+        title:'',
+        color: color,
+        text:''
+    }
+    notes = [ note,...notes];
+   
+    
+    console.log(notes)
+    
+    
 }
-let NoteList =[];
 
-let NoteObj ={
-    title : {},
-    text: {}
-}    
+function randomColorGenerator(){
+    let colors = ['#DDFFC2', 'FFC2C2','#FFEAC"', '#C2FFD3', '#C2FFEC', 'C2FAFF','#C2E2FF','#CBC2FF','#EBC2FF','#FFC2F7','#FFC2D8']
+    let index = Math.floor(Math.random()* colors.length)
+    return colors[index]
+}
+
 
 </script>
 <div class="notes-container">
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
-    <Note></Note>
- 
-    
+    {#each notes as note, i}
+           <NoteComponent title={note.title} text={note.text} color={note.color}></NoteComponent>
+    {/each} 
 </div>
 
 <style lang="scss">
     .notes-container{
         display: flex;
         box-sizing: border-box;
-        border: 1px solid $black;
-        max-width: 100vw;
+        align-items: center;
+        width: 100vw;
         height: 100%;
-        margin: 15px;
+        margin: 10px;
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -41,7 +62,6 @@ let NoteObj ={
         background-color: $white;
         cursor: pointer;
         
-
     }
     
 

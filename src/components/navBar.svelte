@@ -3,7 +3,7 @@
 </script>
 
 <h1 class="page-title">Notes Manager</h1>   
-<input class="search-input">
+<input class="search-input" placeholder="search...">
 <button class="button">Switch</button>
 
 <style lang="scss">
