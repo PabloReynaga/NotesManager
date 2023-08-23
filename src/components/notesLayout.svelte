@@ -3,10 +3,11 @@
 import NoteComponent from "./note.svelte";
 
 let note = {
-    title: 'title',
-    color: 'red',
-    text: 'text'
+    title: '',
+    color: '',
+    text: ''
 };
+
 
 let notes =[];
 let copyNotes =[...notes]
@@ -14,7 +15,7 @@ let copyNotes =[...notes]
 let addNewNote = () =>{
     const color = randomColorGenerator()
     const note ={
-        title:'',
+        text:'',
         color: color,
         text:''
     }
@@ -26,8 +27,9 @@ let addNewNote = () =>{
     
 }
 
+
 function randomColorGenerator(){
-    let colors = ['#DDFFC2', 'FFC2C2','#FFEAC"', '#C2FFD3', '#C2FFEC', 'C2FAFF','#C2E2FF','#CBC2FF','#EBC2FF','#FFC2F7','#FFC2D8']
+    let colors = ['#DDFFC2', '#FFC2C2','#FFEAC2', '#C2FFD3', '#C2FFEC', '#C2FAFF','#C2E2FF','#CBC2FF','#EBC2FF','#FFC2F7','#FFC2D8']
     let index = Math.floor(Math.random()* colors.length)
     return colors[index]
 }
@@ -61,6 +63,7 @@ function randomColorGenerator(){
         border: dotted 2px $gray ;
         background-color: $white;
         cursor: pointer;
+        
         
     }
     

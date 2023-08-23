@@ -17,7 +17,6 @@ export let color;
 <style lang="scss">
     .note{
         display: block;
-        background-color: $gray;
         width: 380px;
         height: 300px;
         margin: 10px;
@@ -41,7 +40,6 @@ export let color;
         
     }
     .textarea{
-        background-color:$gray;
         outline: none;
         border: none;
         margin-left: 15px;
