@@ -1,16 +1,32 @@
 <script>
-
+    import {createEventDispatcher} from 'svelte';
+ 
 export let title;
 export let text;
 export let color;
+
+const dispatch = createEventDispatcher();
+function handleChange(){
+    dispatch('update',{
+
+        text: text,
+        color: color,
+        title: title
+    })
+
+    
+}
 
 </script>
 
 <div class="note" style={'background-color: ' + color}>
     <button class="button-edit">edit</button>
     <button class="button-delete">delete</button>
-    <input class="title" placeholder="Write a title for your note" bind:value={title}>
-    <textarea style={'background-color: ' + color} class="textarea" placeholder="Write a note..." bind:value={text}></textarea>
+    <input class="title" placeholder="Write a title for your note" bind:value={title} on:change={handleChange}>
+    
+    <textarea style={'background-color: ' + color} 
+    class="textarea" placeholder="Write a note..." 
+    bind:value={text} on:change={handleChange}></textarea>
    
 </div>
 

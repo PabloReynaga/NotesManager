@@ -2,24 +2,18 @@
  
 import NoteComponent from "./note.svelte";
 
-let note = {
-    title: '',
-    color: '',
-    text: ''
-};
-
-
 let notes =[];
 let copyNotes =[...notes]
 
 let addNewNote = () =>{
     const color = randomColorGenerator()
     const note ={
-        text:'',
+        title:'',
         color: color,
         text:''
     }
     notes = [ note,...notes];
+    copyNotes = [... notes]
    
     
     console.log(notes)
@@ -39,7 +33,7 @@ function randomColorGenerator(){
 <div class="notes-container">
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
     {#each notes as note, i}
-           <NoteComponent title={note.title} text={note.text} color={note.color}></NoteComponent>
+           <NoteComponent title={note.title} text={note.text} color={note.color} on:update ></NoteComponent>
     {/each} 
 </div>
 
@@ -62,9 +56,15 @@ function randomColorGenerator(){
         margin: 10px;
         border: dotted 2px $gray ;
         background-color: $white;
+        border-radius: 10px;
         cursor: pointer;
         
         
+    }
+    .new-note-button:hover{
+       color: rgb(35, 58, 134);
+        border: dotted 2px rgb(31,101,167);
+        background-color: rgb(223,239,255);
     }
     
 
