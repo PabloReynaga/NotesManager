@@ -3,6 +3,7 @@
 import { v4 } from 'uuid';
 import NoteComponent from "./note.svelte";
 
+
 let notes =[];
 let copyNotes =[...notes]
 
@@ -23,7 +24,8 @@ let addNewNote = () =>{
 
 function deleteNote(e){
    const response = notes.filter(n => n.id !== e.detail.id)
-    notes = [...response]
+    notes = [...response];
+    copyNotes=[...notes]
 }
 
 
@@ -42,12 +44,25 @@ function randomColorGenerator(){
     return colors[index]
 }
 
+function changeColor(e){
+    const id = e.detail.id
+    const index = notes.findIndex(n => n.id === id)
+    notes[index].color = randomColorGenerator();
+    copyNotes[index].color = notes[index].color;
+   
+}
+function search(e){
+    const query = e.detail;
+    console.log(query)
+
+}
 
 </script>
 <div class="notes-container">
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
     {#each notes as note, i}
-           <NoteComponent title={note.title} text={note.text} color={note.color} id={note.id} on:update={handleChange} on:remove={deleteNote}></NoteComponent>
+           <NoteComponent bind:title={note.title} bind:text={note.text} color={note.color} id={note.id}
+           on:update={handleChange} on:remove={deleteNote} on:color={changeColor} on:search={search}></NoteComponent>
     {/each} 
 </div>
 
