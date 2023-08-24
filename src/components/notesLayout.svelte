@@ -2,6 +2,8 @@
 
 import { v4 } from 'uuid';
 import NoteComponent from "./note.svelte";
+import NavBar from './navBar.svelte';
+
 
 
 let notes =[];
@@ -51,18 +53,37 @@ function changeColor(e){
     copyNotes[index].color = notes[index].color;
    
 }
-function search(e){
-    const query = e.detail;
+
+function handleInput(e){
+    const query = e.target.value;
     console.log(query)
+    if(query===""){
+        copyNotes=[...notes];
+        return false;
+    }  
+    const results = notes.filter(note=>{
+        const text = note.text.toLowerCase();
+        const title = note.title.toLowerCase();
+        return title.indexOf(query) > -1 || text.indexOf(query) > -1;
+
+    });
+    
+    copyNotes=[...results];
+    notes=copyNotes;
 
 }
 
 </script>
-<div class="notes-container">
+<header>
+    <NavBar on:input={handleInput}></NavBar>	
+</header>
+
+<div class="notes-container" >
+    
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
     {#each notes as note, i}
            <NoteComponent bind:title={note.title} bind:text={note.text} color={note.color} id={note.id}
-           on:update={handleChange} on:remove={deleteNote} on:color={changeColor} on:search={search}></NoteComponent>
+           on:update={handleChange} on:remove={deleteNote} on:color={changeColor}></NoteComponent>
     {/each} 
 </div>
 
