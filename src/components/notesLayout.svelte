@@ -19,8 +19,20 @@ let addNewNote = () =>{
     copyNotes = [... notes]
    
     console.log(notes)
-    
-    
+}
+
+function deleteNote(e){
+   const response = notes.filter(n => n.id !== e.detail.id)
+    notes = [...response]
+}
+
+
+function handleChange(e){
+    const note = e.detail;
+    const index = notes.findIndex(n => n.id === note.id);
+    notes[index] = note;
+    copyNotes = [...notes];
+
 }
 
 
@@ -35,7 +47,7 @@ function randomColorGenerator(){
 <div class="notes-container">
     <button class="new-note-button" on:click={addNewNote}>New Note</button>
     {#each notes as note, i}
-           <NoteComponent title={note.title} text={note.text} color={note.color} on:update ></NoteComponent>
+           <NoteComponent title={note.title} text={note.text} color={note.color} id={note.id} on:update={handleChange} on:remove={deleteNote}></NoteComponent>
     {/each} 
 </div>
 
