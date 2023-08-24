@@ -1,5 +1,6 @@
 <script>
- 
+
+import { v4 } from 'uuid';
 import NoteComponent from "./note.svelte";
 
 let notes =[];
@@ -7,7 +8,9 @@ let copyNotes =[...notes]
 
 let addNewNote = () =>{
     const color = randomColorGenerator()
+    const id = v4();
     const note ={
+        id: id ,
         title:'',
         color: color,
         text:''
@@ -15,7 +18,6 @@ let addNewNote = () =>{
     notes = [ note,...notes];
     copyNotes = [... notes]
    
-    
     console.log(notes)
     
     
