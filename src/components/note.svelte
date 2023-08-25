@@ -73,8 +73,6 @@ function handleRemove(){
         width: 95%;
         height: 15%;
         resize: none;
-        outline: none;
-        border: none;
         overflow:hidden
     
     }
@@ -85,15 +83,13 @@ function handleRemove(){
         resize: none;
         height: 60%;
         width: 90%;
-        
-
-
     }
     .button-edit{
         margin: 5px;
         background-color: transparent;
         border: none;
         cursor: pointer;
+        opacity: 0.5;
     }
     .button-delete{
         float: right;
@@ -101,6 +97,13 @@ function handleRemove(){
         background-color: transparent;
         border: none;
         cursor: pointer;
+        opacity: 0.5;
         
+    }
+    .button-delete:hover{
+        opacity: 5;
+    }
+    .button-edit:hover{
+        opacity: 5;
     }
 </style>

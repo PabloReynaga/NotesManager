@@ -83,19 +83,22 @@ function handleInput(e){
     <NavBar on:input={handleInput}></NavBar>	
 </header>
 <main class={$darkMode? 'darkMode':''}>
-<p class="counter">Notes {countNotas}</p>
+    <div class={$darkMode? 'darkMode':''}>
+    <p class="counter">Notes {countNotas}</p>
 
-<div class="notes-container" >
+    <div class="notes-container" >
     
-    <button class="new-note-button" on:click={addNewNote}>New Note</button>
+    <button class='new-note-button' on:click={addNewNote}>New Note</button>
     {#each notes as note, i}
            <NoteComponent bind:title={note.title} bind:text={note.text} color={note.color} id={note.id}
            on:update={handleChange} on:remove={deleteNote} on:color={changeColor}></NoteComponent>
     {/each} 
+    </div>
 </div>
+
 </main>
 <style lang="scss">
-  
+
     .counter{
         float: right;
        margin: 15px;
@@ -118,7 +121,7 @@ function handleInput(e){
         margin: 10px;
         border: dotted 2px $gray ;
         background-color: $white;
-        border-radius: 10px;
+        border-radius: 5px;
         cursor: pointer;
         
         
@@ -132,9 +135,10 @@ function handleInput(e){
         color: $white;
         background-color: #153244;
     }
-    main.darkMode{
+    main.darkMode, div.darkMode{
         color: $white;
         background-color: #031926;
     }
+    
     
 </style>
