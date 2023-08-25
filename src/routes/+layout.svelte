@@ -1,6 +1,6 @@
 <script>
 import "../app.scss";
-  import NavBar from "../components/navBar.svelte";
+  
 
 </script>
 <slot></slot> 

@@ -21,7 +21,8 @@
 <h1 class="page-title">Notes Manager</h1>   
 <input class="search-input" placeholder="search..." on:input>
 <div class="switch-container">
-   <button style={'float: ' + buttonPosition } class="button" on:click={changeMode}></button>
+   <button style={'float: ' + buttonPosition + ";" } 
+   class="button" on:click={changeMode}></button>
 </div>
 
 
@@ -44,8 +45,6 @@
       height: 25px;
       border: 30px;
       border-radius: 30px;
-      
-
 
     }
     .button{
@@ -54,11 +53,8 @@
       border-radius: 30px;
       background-color: rgb(208, 208, 208);
       border: none;
-      cursor: pointer;
-      
+      cursor: pointer; 
     }
-  
     
-  
-  
+
 </style>

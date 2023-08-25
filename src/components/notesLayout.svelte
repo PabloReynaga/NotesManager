@@ -3,6 +3,8 @@
 import { v4 } from 'uuid';
 import NoteComponent from "./note.svelte";
 import NavBar from './navBar.svelte';
+  import { darkMode } from '../store/store';
+
 
 $: countNotas = notes.length
 
@@ -76,9 +78,11 @@ function handleInput(e){
 }
 
 </script>
-<header>
+
+<header class={$darkMode? 'darkMode':''}>
     <NavBar on:input={handleInput}></NavBar>	
 </header>
+<main class={$darkMode? 'darkMode':''}>
 <p class="counter">Notes {countNotas}</p>
 
 <div class="notes-container" >
@@ -89,8 +93,9 @@ function handleInput(e){
            on:update={handleChange} on:remove={deleteNote} on:color={changeColor}></NoteComponent>
     {/each} 
 </div>
-
+</main>
 <style lang="scss">
+  
     .counter{
         float: right;
        margin: 15px;
@@ -99,7 +104,7 @@ function handleInput(e){
         display: flex;
         box-sizing: border-box;
         align-items: center;
-        width: 100vw;
+        width: 100%;
         height: 100%;
         margin: 10px;
         flex-wrap: wrap;
@@ -123,6 +128,13 @@ function handleInput(e){
         border: dotted 2px rgb(31,101,167);
         background-color: rgb(223,239,255);
     }
+    header.darkMode{
+        color: $white;
+        background-color: #153244;
+    }
+    main.darkMode{
+        color: $white;
+        background-color: #031926;
+    }
     
-
 </style>
