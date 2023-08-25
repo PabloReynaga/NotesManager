@@ -69,7 +69,7 @@ function handleInput(e){
     });
     
     copyNotes=[...results];
-    notes=copyNotes;
+    
 
 }
 

@@ -38,7 +38,8 @@ function handleRemove(){
     </button>
     <button class="button-delete" on:click={handleRemove} ><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
     </button>
-    <input class="title" placeholder="Write a title for your note" bind:value={title} on:change={handleChange}>
+    
+    <textarea class="title" placeholder="Write a title for your note" bind:value={title} on:change={handleChange}></textarea>
     
     <textarea style={'background-color: ' + color} 
     class="textarea" placeholder="Write a note..." 
@@ -55,6 +56,7 @@ function handleRemove(){
         padding: 10;
   
     }
+    
     .title{
         display: flex;
         align-items: center;
@@ -64,8 +66,16 @@ function handleRemove(){
         appearance: none;
         background-color: transparent;
         border: none;
-        font-size: 25px;
+        font-size: 19px;
+        font-weight: bold;
         padding: 10px;
+        overflow-wrap: break-word;
+        width: 95%;
+        height: 15%;
+        resize: none;
+        outline: none;
+        border: none;
+        overflow:hidden
     
     }
     .textarea{
@@ -73,8 +83,9 @@ function handleRemove(){
         border: none;
         margin-left: 15px;
         resize: none;
-        height: 70%;
-        width: 91%;
+        height: 60%;
+        width: 90%;
+        
 
 
     }
