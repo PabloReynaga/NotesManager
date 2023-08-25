@@ -4,6 +4,8 @@ import { v4 } from 'uuid';
 import NoteComponent from "./note.svelte";
 import NavBar from './navBar.svelte';
 
+$: countNotas = notes.length
+
 
 
 let notes =[];
@@ -77,6 +79,7 @@ function handleInput(e){
 <header>
     <NavBar on:input={handleInput}></NavBar>	
 </header>
+<p class="counter">Notes {countNotas}</p>
 
 <div class="notes-container" >
     
@@ -88,6 +91,10 @@ function handleInput(e){
 </div>
 
 <style lang="scss">
+    .counter{
+        float: right;
+       margin: 15px;
+    }
     .notes-container{
         display: flex;
         box-sizing: border-box;
