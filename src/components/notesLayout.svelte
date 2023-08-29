@@ -100,13 +100,13 @@ function handleInput(e){
 
     .counter{
         float: right;
-       margin: 15px;
+        margin: 15px;
     }
     .notes-container{
         display: flex;
         box-sizing: border-box;
         align-items: center;
-        width: 100%;
+        width: 99%;
         height: 100%;
         margin: 10px;
         flex-wrap: wrap;

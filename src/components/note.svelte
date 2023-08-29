@@ -96,7 +96,7 @@ let prueba = 'red'
         border: none;
         margin-left: 15px;
         resize: none;
-        height: 90%;
+        height: 175px;
         width: 90%;
         margin-bottom: none;
         background-color: transparent;
@@ -130,7 +130,6 @@ let prueba = 'red'
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: none;
         outline: none;
         appearance: none;
         border: none;
@@ -150,9 +149,10 @@ let prueba = 'red'
         outline: none;
         border: none;
         resize: none;
-        height: 100%;
-        width: 95%;
+        height: 175px;
+        width: 94%;
         padding-left: 17px;
+        margin-right: 5px;
         margin-bottom: none;
         background-color: #153244;
         margin-left: none;
@@ -163,6 +163,7 @@ let prueba = 'red'
         min-height: 89%;
         min-width: 100.4%;
         margin-left: -0.5px;
+
     }
     
 </style>
