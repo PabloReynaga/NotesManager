@@ -20,6 +20,7 @@ let addNewNote = () =>{
         id: id ,
         title:'',
         color: color,
+        
         text:''
     }
     notes = [ note,...notes];
@@ -73,8 +74,6 @@ function handleInput(e){
     });
     
     copyNotes=[...results];
-    
-
 }
 
 </script>

@@ -38,6 +38,7 @@
        justify-content: center;
        position: relative;
        margin: 5px;
+       outline: none;
     }
     .switch-container{
       background-color: $gray;
