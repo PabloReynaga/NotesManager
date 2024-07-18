@@ -11,9 +11,9 @@ $radius: 9px;
 // general font size
 $font-size: 1.15rem;
 // color black
-$black: rgb(20, 20, 20);
+$black: rgba(43, 43, 43, 0.99);
 // color white
-$white: rgb(255, 254, 253);
+$white: rgb(198, 198, 198);
 
 // color palette 2024
 $linen: hsla(35, 48%, 90%, 1);
@@ -24,3 +24,5 @@ $coral-pink: hsla(11, 92%, 75%, 1);
 $light-red: hsla(0, 92%, 71%, 1);
 $light-coral: hsla(357, 58%, 69%, 1);
 $melon: hsla(9, 100%, 82%, 1);
+$darkmodus-navbar: hsl(359, 39%, 42%);
+$darkmodus-button-navbar: hsl(357, 34%, 30%);
