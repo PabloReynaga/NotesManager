@@ -23,7 +23,7 @@ provide('dialogState', dialogState)
     <Navbar></Navbar>
     <div class="main-container" :class="[themeState.isDark.value? 'darkmodus-active' : '']">
       <NewCard @createNote="cardsState.createNote"></NewCard>
-      <Dialog :visible="dialogState.isVisible" @closeDialog="dialogState.closeDialog" />
+      <Dialog :visible="dialogState.isVisible.value" @closeDialog="dialogState.closeDialog" />
       <div class="cards-container">
         <Card v-for="item in cardsState.cardsList.value"
               :key="item.id"

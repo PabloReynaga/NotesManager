@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, inject, type Ref } from 'vue'
+import { ref, inject, type Ref } from 'vue'
 import type { Note } from '@/types/Note'
 
 const props = defineProps({

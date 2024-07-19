@@ -18,5 +18,13 @@ export default defineConfig({
         additionalData: '@import "./src/assets/variables.scss";'
       }
     }
+  },
+  build: {
+    rollupOptions: {
+      external: (id) => {
+        // Exclude any files or directories that match the pattern
+        return id.includes('src/api');
+      }
+    }
   }
 })

@@ -20,9 +20,27 @@ jobs:
         with: 
               cache: npm
         
-      - name: Install dependecies
+      - name: Install dependencies
         run: npm install
         
       - name: Run Linter
         run: npm run lint
-    
+
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.0.2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: preynaga/docker_repository:tagname
