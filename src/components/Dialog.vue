@@ -2,14 +2,6 @@
 import { ref, inject, type Ref } from 'vue'
 import type { Note } from '@/types/Note'
 
-const props = defineProps({
-  visible: {
-    type: Boolean,
-    default: false,
-    required: true
-  },
-})
-
 const cardsState:any = inject('cardsState')
 const themeState:any = inject('themeState')
 const dialogState:any = inject('dialogState')
