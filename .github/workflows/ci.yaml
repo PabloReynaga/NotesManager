@@ -28,6 +28,7 @@ jobs:
 
 
   build-and-push:
+    needs: quality-checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,3 +45,22 @@ jobs:
         with:
           push: true
           tags: preynaga/docker_repository:tagname
+
+
+  deployment:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Raspberry Pi
+        run: |
+          ssh -o StrictHostKeyChecking=no preynaga@192.168.0.23
+          'docker pull preynaga/docker_repository:tagname && docker stop my_container || true && docker rm my_container || true && docker run -d --name deploy -p 3000:3000 preynaga/docker_repository:tagname'
+
