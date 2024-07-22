@@ -61,7 +61,7 @@ jobs:
 
       - name: Deploy to Raspberry Pi
         run: |
-          ssh -o StrictHostKeyChecking=no -p 10019 preynaga@0.tcp.eu.ngrok.io <<EOF
+          ssh -o StrictHostKeyChecking=no -p 19579 preynaga@6.tcp.eu.ngrok.io <<EOF
             docker pull preynaga/docker_repository:tagname
             docker stop my_container || true
             docker rm my_container || true
