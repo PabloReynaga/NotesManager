@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from 'vue';
 
-const dialogState:any = inject('dialogState')
+const dialogState: any = inject('dialogState');
 
 const showDialog = () => {
-  dialogState.openDialog()
+  dialogState.openDialog();
 };
-
 </script>
 
 <template>
   <button class="card" @click="showDialog">
-      <p class="text-content">create a new card!</p>
+    <p class="text-content">create a new card!</p>
   </button>
 </template>
 
@@ -22,13 +21,12 @@ const showDialog = () => {
   width: 25rem;
   margin: 3rem;
   background-color: $white;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   align-items: center;
   justify-content: center;
-  opacity: .6;
-  border: .2rem dotted $black ;
+  opacity: 0.6;
+  border: 0.2rem dotted $black;
   cursor: pointer;
   color: $black;
 }
-
 </style>
