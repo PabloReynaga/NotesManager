@@ -3,6 +3,7 @@ import { ref } from 'vue';
 export function useDialog() {
   const isVisible = ref<boolean>(false);
   const dialogElement = ref<HTMLDialogElement | null>(null);
+  const logInVisible =  ref<boolean>(true)
 
   const openDialog = () => {
     isVisible.value = true;
@@ -14,10 +15,17 @@ export function useDialog() {
     dialogElement.value?.close();
   };
 
+  const switchDialog = () => {
+    logInVisible.value = !logInVisible.value
+    console.log(logInVisible.value)
+  }
+
   return {
     isVisible,
     openDialog,
     closeDialog,
-    dialogElement
+    dialogElement,
+    switchDialog,
+    logInVisible
   };
 }

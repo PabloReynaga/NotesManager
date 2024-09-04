@@ -2,10 +2,9 @@
 import type { User } from '@/types/User';
 import { inject, ref } from 'vue';
 
-const dialogState: any = inject('dialogState');
-
 const warnMessage = ref<boolean>(false);
 
+const dialogState: any = inject('dialogState');
 
 const user = ref<User>({
   email:"",
@@ -41,33 +40,33 @@ const handleLogInEvent = async (user: User) => {
 </script>
 
 <template>
-    <div class="main-container">
-      <div class="content-container" >
-        <div class="title-container">
-          <h1>Log In</h1>
-        </div>
-        <div class="input-field">
-          <p class="sub-title">User Name</p>
-          <input v-model="user.name"
-            class="input-element"
-            type="email"
-          />
-          <p class="sub-title">Password</p>
-          <input
-            v-model="user.password"
-            class="input-element"
-            type="password"
-          />
-        </div>
-        <p :class="warnMessage? 'warn-message-field-enable': 'warn-message-field-disable'">
-          No value could be empty!
-        </p>
-        <div class="buttons-container">
-          <button class="button" @click="dialogState.switchDialog()">Sign Up</button>
-          <button class="button" @click="handleLogInEvent(user)">Enter</button>
-        </div>
+  <div class="main-container">
+    <div class="content-container" >
+      <div class="title-container">
+        <h1>Sign Up</h1>
+      </div>
+      <div class="input-field">
+        <p class="sub-title">User Name</p>
+        <input v-model="user.name"
+               class="input-element"
+               type="email"
+        />
+        <p class="sub-title">Password</p>
+        <input
+          v-model="user.password"
+          class="input-element"
+          type="password"
+        />
+      </div>
+      <p :class="warnMessage? 'warn-message-field-enable': 'warn-message-field-disable'">
+        No value could be empty!
+      </p>
+      <div class="buttons-container">
+        <button class="button" @click="dialogState.switchDialog">Sign Up</button>
+        <button class="button" @click="handleLogInEvent(user)">Enter</button>
       </div>
     </div>
+  </div>
 
 </template>
 

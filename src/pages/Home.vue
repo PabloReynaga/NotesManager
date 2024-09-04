@@ -20,7 +20,7 @@ provide('dialogState', dialogState);
     class="main-container"
     :class="[themeState.isDark.value ? 'darkmodus-active' : '']"
   >
-    <NewCard @createNote="cardsState.createNote"></NewCard>
+    <NewCard></NewCard>
     <Dialog
       :visible="dialogState.isVisible.value"
       @closeDialog="dialogState.closeDialog"
