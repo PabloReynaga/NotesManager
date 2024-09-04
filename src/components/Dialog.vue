@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, inject, type Ref } from 'vue';
 import type { Note } from '@/types/Note';
-import socket from '../../socket';
 
 const cardsState: any = inject('cardsState');
 const themeState: any = inject('themeState');
@@ -36,13 +35,7 @@ const resetNoteDTO = () => {
   NoteDTO.value.color = '';
   NoteDTO.value.content = '';
 };
-const messages:Array<String> = []
 
-const check_socket = ()=>{
-  socket.on('message', (msg: string) => {
-    messages.push(msg);
-  });
-}
 
 </script>
 
@@ -84,7 +77,7 @@ const check_socket = ()=>{
         <div class="buttons-container">
           <button class="button" @click="createNote(NoteDTO)">Create</button>
           <button class="button" @click="closeDialog">Close</button>
-          <button class="button" @click="check_socket">Socket</button>
+          <button class="button" >Socket</button>
         </div>
       </div>
     </div>
