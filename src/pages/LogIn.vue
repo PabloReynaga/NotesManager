@@ -5,15 +5,12 @@ import { useDialog } from '@/composables/useDialog';
 import { provide } from 'vue';
 
 const dialogState = useDialog();
-provide('dialogState', dialogState)
-
+provide('dialogState', dialogState);
 </script>
 
 <template>
-  <LogInView v-if="dialogState.logInVisible.value"/>
+  <LogInView v-if="dialogState.logInVisible.value" />
   <SignUpView v-else />
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

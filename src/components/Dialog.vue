@@ -35,8 +35,6 @@ const resetNoteDTO = () => {
   NoteDTO.value.color = '';
   NoteDTO.value.content = '';
 };
-
-
 </script>
 
 <template>
@@ -77,7 +75,7 @@ const resetNoteDTO = () => {
         <div class="buttons-container">
           <button class="button" @click="createNote(NoteDTO)">Create</button>
           <button class="button" @click="closeDialog">Close</button>
-          <button class="button" >Socket</button>
+          <button class="button">Socket</button>
         </div>
       </div>
     </div>

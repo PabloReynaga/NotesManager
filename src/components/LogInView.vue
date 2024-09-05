@@ -1,74 +1,69 @@
 <script setup lang="ts">
-import type { User } from '@/types/User';
+import type { authUser } from '@/types/authUser';
 import { inject, ref } from 'vue';
+import auth from '@/services/auth';
+import router from '@/router';
 
 const dialogState: any = inject('dialogState');
-
 const warnMessage = ref<boolean>(false);
 
-
-const user = ref<User>({
-  email:"",
-  password:""
+const user = ref<authUser>({
+  name: '',
+  password: ''
 });
 
-
-const handleLogInEvent = async (user: User) => {
-  if(user.name == "" || user.password == ""){
+const handleLogInEvent = async (user: authUser) => {
+  if (user.name == '' || user.password == '') {
     warnMessage.value = true;
     return;
   }
   try {
-    const response = await fetch('http://localhost:3000/register', {
+    const response = await fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name: user.name, password: user.password }),
+      body: JSON.stringify({ name: user.name, password: user.password })
     });
     const data = await response.json();
     if (response.ok) {
-      localStorage.setItem('token', data.token);
-      /*router.push('/chat');*/
-    }else {
+      auth.saveToken(data.token);
+      await router.push('/home');
+      router.go();
+    } else {
       console.log(data.message);
     }
-
   } catch (error) {
     errorMessage.value = 'An error occurred during login';
   }
-}
+};
 </script>
 
 <template>
-    <div class="main-container">
-      <div class="content-container" >
-        <div class="title-container">
-          <h1>Log In</h1>
-        </div>
-        <div class="input-field">
-          <p class="sub-title">User Name</p>
-          <input v-model="user.name"
-            class="input-element"
-            type="email"
-          />
-          <p class="sub-title">Password</p>
-          <input
-            v-model="user.password"
-            class="input-element"
-            type="password"
-          />
-        </div>
-        <p :class="warnMessage? 'warn-message-field-enable': 'warn-message-field-disable'">
-          No value could be empty!
-        </p>
-        <div class="buttons-container">
-          <button class="button" @click="dialogState.switchDialog()">Sign Up</button>
-          <button class="button" @click="handleLogInEvent(user)">Enter</button>
-        </div>
+  <div class="main-container">
+    <div class="content-container">
+      <div class="title-container">
+        <h1>Log In</h1>
+      </div>
+      <div class="input-field">
+        <p class="sub-title">User Name</p>
+        <input v-model="user.name" class="input-element" type="email" />
+        <p class="sub-title">Password</p>
+        <input v-model="user.password" class="input-element" type="password" />
+      </div>
+      <p
+        :class="
+          warnMessage ? 'warn-message-field-enable' : 'warn-message-field-disable'
+        "
+      >
+        No value could be empty!
+      </p>
+      <div class="buttons-container">
+        <button class="button" @click="dialogState.switchDialog()">Sign Up</button>
+        <button class="button" @click="handleLogInEvent(user)">Enter</button>
       </div>
     </div>
-
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -87,14 +82,14 @@ const handleLogInEvent = async (user: User) => {
   .content-container {
     text-align: center;
     margin: auto;
-    min-width: 20rem ;
+    min-width: 20rem;
     min-height: 18rem;
     z-index: 100;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   }
-  .animation{
-    animation: register_view 1.2s ease-in-out ;
+  .animation {
+    animation: register_view 1.2s ease-in-out;
   }
   .title-container {
     margin: 1rem;
@@ -109,18 +104,17 @@ const handleLogInEvent = async (user: User) => {
       margin-bottom: 1rem;
       height: 1.5rem;
       border-radius: 0.4rem;
-      border: none
+      border: none;
     }
   }
   .warn-message-field-disable {
     font-size: 0.8rem;
     margin-bottom: 0rem;
     opacity: 0;
-
   }
   .warn-message-field-enable {
     color: $light-red;
-    transition: .5s ease;
+    transition: 0.5s ease;
     margin-bottom: 1rem;
     opacity: 1;
     height: auto; /* Alternatively, you can use a fixed height if preferred */
@@ -136,19 +130,19 @@ const handleLogInEvent = async (user: User) => {
       cursor: pointer;
       &:hover {
         background-color: darken(rgb(212, 193, 185), 10%);
-        transition: .3s ease;
+        transition: 0.3s ease;
       }
     }
   }
 }
-@keyframes register_view{
+@keyframes register_view {
   0% {
     opacity: 1;
   }
-  50%{
+  50% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }

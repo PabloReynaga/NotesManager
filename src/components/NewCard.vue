@@ -5,7 +5,6 @@ const dialogState: any = inject('dialogState');
 
 const showDialog = () => {
   dialogState.openDialog();
-
 };
 </script>
 

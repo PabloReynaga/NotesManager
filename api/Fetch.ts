@@ -1,18 +1,22 @@
-import type {Writable} from "svelte/store";
+import type { Writable } from 'svelte/store';
 
-type RequestMethod = "POST" | "PUT" | "GET" | "DELETE";
+type RequestMethod = 'POST' | 'PUT' | 'GET' | 'DELETE';
 
 declare global {
   interface Window {
     tool: {
-      location: string,
-      token: string,
-      version: string,
+      location: string;
+      token: string;
+      version: string;
     };
   }
 }
 
-export const fetchDataArray = async <T>(path: string, dataStore: Writable<T[]>, loadingStore?: Writable<boolean>) => {
+export const fetchDataArray = async <T>(
+  path: string,
+  dataStore: Writable<T[]>,
+  loadingStore?: Writable<boolean>
+) => {
   if (loadingStore) {
     loadingStore.set(true);
   }
@@ -23,38 +27,60 @@ export const fetchDataArray = async <T>(path: string, dataStore: Writable<T[]>, 
   }
 };
 
-export const fetchJson = <T>(relativePath: string, method: RequestMethod = "GET", body: any = undefined): Promise<T> => {
-  return fetchInternal<T>(relativePath, method, body, res => res.json());
+export const fetchJson = <T>(
+  relativePath: string,
+  method: RequestMethod = 'GET',
+  body: any = undefined
+): Promise<T> => {
+  return fetchInternal<T>(relativePath, method, body, (res) => res.json());
 };
 
-export const fetchString = (relativePath: string, method: RequestMethod = "GET", body: any = undefined): Promise<string> => {
-  return fetchInternal<string>(relativePath, method, body, res => res.text());
+export const fetchString = (
+  relativePath: string,
+  method: RequestMethod = 'GET',
+  body: any = undefined
+): Promise<string> => {
+  return fetchInternal<string>(relativePath, method, body, (res) => res.text());
 };
 
-export const fetchResponse = (relativePath: string, method: RequestMethod = "GET", body: any = undefined): Promise<Response> => {
-  return fetchInternal<Response>(relativePath, method, body, res => res);
+export const fetchResponse = (
+  relativePath: string,
+  method: RequestMethod = 'GET',
+  body: any = undefined
+): Promise<Response> => {
+  return fetchInternal<Response>(relativePath, method, body, (res) => res);
 };
 
-const fetchInternal = <T>(relativePath: string, method: RequestMethod, body: any, mapper: (res: Response) => T | Promise<T>): Promise<T> => {
+const fetchInternal = <T>(
+  relativePath: string,
+  method: RequestMethod,
+  body: any,
+  mapper: (res: Response) => T | Promise<T>
+): Promise<T> => {
   return new Promise<T>((resolve, reject) => {
     fetch(`${window.tool.location}api` + relativePath, {
       method: method,
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        'Authorization': `Bearer ${window.tool.token}`
+        Authorization: `Bearer ${window.tool.token}`
       },
       body: body === undefined ? undefined : JSON.stringify(body)
-    }).then(res => {
-      if (!res.ok) {
-        res.text().then(reject).catch(() => {
-          reject("Could not complete fetch");
-        });
-        return;
-      }
-      resolve(mapper(res));
-    }).catch(e => {
-      console.error("Could not fetch", e);
-      reject("Could not complete fetch");
-    });
+    })
+      .then((res) => {
+        if (!res.ok) {
+          res
+            .text()
+            .then(reject)
+            .catch(() => {
+              reject('Could not complete fetch');
+            });
+          return;
+        }
+        resolve(mapper(res));
+      })
+      .catch((e) => {
+        console.error('Could not fetch', e);
+        reject('Could not complete fetch');
+      });
   });
 };
