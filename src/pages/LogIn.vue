@@ -2,10 +2,12 @@
 import LogInView from '@/components/LogInView.vue';
 import SignUpView from '@/components/SignUpView.vue';
 import { useDialog } from '@/composables/useDialog';
-import { provide } from 'vue';
+import { inject, provide } from 'vue';
 
 const dialogState = useDialog();
 provide('dialogState', dialogState);
+
+
 </script>
 
 <template>
@@ -13,4 +15,6 @@ provide('dialogState', dialogState);
   <SignUpView v-else />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+</style>

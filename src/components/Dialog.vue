@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { ref, inject, type Ref } from 'vue';
 import type { Note } from '@/types/Note';
+import { Client } from '../../api/Client';
 
 const cardsState: any = inject('cardsState');
 const themeState: any = inject('themeState');
 const dialogState: any = inject('dialogState');
 
-const NoteDTO: Ref<Note> = ref<Note>({ id: '', title: '', color: '', content: '' });
+const NoteDTO = ref<Note>({ userId: '', title: '', color: '', content: '' });
 const inputChecker = ref<boolean>(false);
 
 const createNote = (NoteDto: Note) => {
+
+  NoteDto.userId = localStorage.getItem('userId');
+  if(NoteDto.userId == null){
+    throw new Error('UserID not found.')
+  }
   if (
     NoteDTO.value.content != '' &&
     NoteDTO.value.color != '' &&
@@ -30,7 +36,6 @@ const closeDialog = () => {
 };
 
 const resetNoteDTO = () => {
-  NoteDTO.value.id = '';
   NoteDTO.value.title = '';
   NoteDTO.value.color = '';
   NoteDTO.value.content = '';
@@ -52,7 +57,6 @@ const resetNoteDTO = () => {
           <p class="sub-title">Select title:</p>
           <input
             v-model="NoteDTO.title"
-            v-bind:id="NoteDTO.id"
             class="input-element"
             type="text"
           />

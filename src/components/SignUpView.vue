@@ -1,56 +1,48 @@
 <script setup lang="ts">
-import type { newUser } from '@/types/User';
+import type { NewUser } from '@/types/User';
 import { inject, ref } from 'vue';
 import router from '@/router';
 import auth from '../services/auth.ts';
+import { Client } from '../../api/Client';
 
 const showWarnMessage = ref<boolean>(false);
 const warnMessage = ref<string>('');
 const dialogState: any = inject('dialogState');
+const themeState: any = inject('themeState');
+const passwordVerification = ref<string>('');
 
-const user = ref<newUser>({
-  name: '',
+const user = ref<NewUser>({
+  userName: '',
   email: '',
   password: '',
-  repeatedPassword: ''
 });
 
-const handleSignUpEvent = async (user: newUser) => {
+const handleSignUpEvent = async (user: NewUser) => {
   if (
-    user.name == '' ||
+    user.userName == '' ||
     user.email == '' ||
     user.password == '' ||
-    user.repeatedPassword == ''
+    passwordVerification.value == ''
   ) {
     warnMessage.value = 'No value could be empty.';
     showWarnMessage.value = true;
     return;
   }
-  if (user.password !== user.repeatedPassword) {
+  if (user.password !== passwordVerification.value) {
     warnMessage.value = 'Passwords do not match.';
     showWarnMessage.value = true;
     return;
   }
   try {
-    const response = await fetch('http://localhost:3000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: user.name,
-        email: user.email,
-        password: user.password
-      })
-    });
-    const data = await response.json();
-    console.log(data.token);
-    if (response.ok) {
+    const resp = await Client.createUser(user)
+    console.log(resp)
+    if (resp.isLogined) {
+      localStorage.setItem('userId', resp.userId);
       auth.authState.value = true;
-      auth.saveToken(data.token);
+      auth.saveToken(resp.token);
       await router.push('/home');
     } else {
-      console.log(data.message);
+      console.log(resp.message);
     }
   } catch (error) {
     errorMessage.value = 'An error occurred during login';
@@ -59,21 +51,21 @@ const handleSignUpEvent = async (user: newUser) => {
 </script>
 
 <template>
-  <div class="main-container">
+  <div class="main-container" :class="[themeState?.isDark.value ? 'darkmodus-active' : '']">
     <div class="content-container">
       <div class="title-container">
         <h1>Sign Up</h1>
       </div>
       <div class="input-field">
         <p class="sub-title">User Name</p>
-        <input v-model="user.name" class="input-element" type="email" />
+        <input v-model="user.userName" class="input-element" type="email" />
         <p class="sub-title">Email</p>
         <input v-model="user.email" class="input-element" type="email" />
         <p class="sub-title">Password</p>
         <input v-model="user.password" class="input-element" type="password" />
         <p class="sub-title">Repeat Password</p>
         <input
-          v-model="user.repeatedPassword"
+          v-model="passwordVerification"
           class="input-element"
           type="password"
         />
@@ -163,6 +155,10 @@ const handleSignUpEvent = async (user: newUser) => {
       }
     }
   }
+}
+.darkmodus-active {
+  background-color: $black;
+  color: $white;
 }
 @keyframes register_view {
   0% {

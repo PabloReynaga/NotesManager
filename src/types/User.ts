@@ -1,11 +1,10 @@
-export type authUser = {
-  name: string;
+export type User = {
+  userName: string;
   password: string;
 };
 
-export type newUser = {
-  name: string;
+export type NewUser = {
+  userName: string;
   email: string;
   password: string;
-  repeatedPassword: string;
 };

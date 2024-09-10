@@ -7,8 +7,10 @@ const themeState = useTheme();
 provide('themeState', themeState);
 </script>
 <template>
-  <Navbar></Navbar>
-  <RouterView />
+    <Navbar></Navbar>
+    <RouterView />
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

@@ -1,11 +1,33 @@
-import { fetchJson, fetchResponse } from './fetch';
-import { exampleStore } from '../store/store';
+import { fetchJson, fetchResponse } from './Fetch';
+import type { NewUser, User } from '../src/types/User';
 import type { Note } from '@/types/Note';
-export let dataGetExample: Note;
-export let getImageData: Note;
+
 
 export class Client {
-  static async getExamples(userId?: number): Promise<Note> {
+
+  static async createUser(newUser: NewUser){
+    return await fetchJson('/register', 'POST', newUser);
+  }
+
+  static async loginUser(user: User){
+    return await fetchJson('/login', 'POST', user);
+  }
+
+  static async createNote(note: Note){
+    return await fetchJson('/createNote', 'POST', note);
+  }
+
+  static async updateNote(note: Note){
+    return await fetchJson('/updateNote', 'POST', note);
+  }
+  static async deleteNote(noteId:string){
+    return await fetchJson(`/deleteNote${noteId}`, 'DELETE');
+  }
+  static async getAllNotes(id: string){
+    return await fetchJson(`/getAllNotes/${id}`,'GET')
+  }
+
+  /*static async getExamples(userId?: number): Promise<Note> {
     return fetchJson<Note[]>(`/items${userId ? `?id=${userId}` : ''}`).then(
       (value) => {
         exampleStore.set(value);
@@ -69,5 +91,5 @@ export class Client {
 
   static async createImage(image: Note): Promise<Note> {
     return await fetchJson('/images', 'POST', image);
-  }
+  }*/
 }

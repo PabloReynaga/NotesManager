@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { ref } from 'vue';
+import router from '@/router';
 
 const authState: boolean = ref(false);
 
@@ -15,24 +16,29 @@ const getToken = (tokenKey: string) => {
 
 // Remove JWT from cookie
 const removeToken = (tokenKey: string) => {
-  Cookies.remove(tokenKey);
+  const resp= Cookies.get(tokenKey);
+  if(resp){
+    Cookies.remove(tokenKey);
+    localStorage.removeItem('userId');
+    router.go()
+  }
 };
 
 const initializeAuthState = () => {
   const token = getToken('authToken');
   console.log(token);
   if (token) {
-    // Optionally: decode the token and check if it has expired
     const isTokenValid = checkTokenValidity(token);
     if (isTokenValid) {
       authState.value = true;
       console.log('Token valid');
     } else {
-      removeToken();
+      removeToken('authToken');
       console.log('Token invalid'); // If expired, remove token
     }
   } else {
     authState.value = false;
+    localStorage.removeItem('userId');
     console.log('Token not found.');
   }
 };

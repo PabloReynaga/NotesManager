@@ -5,14 +5,26 @@ import NewCard from '@/components/NewCard.vue';
 import Dialog from '@/components/Dialog.vue';
 import { useCards } from '@/composables/useCards';
 import { useDialog } from '@/composables/useDialog';
+import { onMounted } from 'vue';
+
 
 const themeState: any = inject('themeState');
 
+const dialogState = useDialog();
+provide('dialogState', dialogState);
 const cardsState = useCards();
 provide('cardsState', cardsState);
 
-const dialogState = useDialog();
-provide('dialogState', dialogState);
+// Fetch the notes when the component is mounted
+onMounted(async () => {
+  await cardsState.userNotes();
+});
+const notesList = cardsState.cardsList;
+// Access the cardsList from the cardsState
+console.log(notesList.value)
+
+
+
 </script>
 
 <template>
@@ -20,6 +32,10 @@ provide('dialogState', dialogState);
     class="main-container"
     :class="[themeState.isDark.value ? 'darkmodus-active' : '']"
   >
+    <div>
+      <p>Notes: {{notesList.length}}</p>
+      <p>Owner: ??</p>
+    </div>
     <NewCard></NewCard>
     <Dialog
       :visible="dialogState.isVisible.value"
@@ -27,7 +43,7 @@ provide('dialogState', dialogState);
     />
     <div class="cards-container">
       <Card
-        v-for="item in cardsState.cardsList.value"
+        v-for="item in notesList"
         :key="item.id"
         :title="item.title"
         :content="item.content"

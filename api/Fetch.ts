@@ -1,5 +1,3 @@
-import type { Writable } from 'svelte/store';
-
 type RequestMethod = 'POST' | 'PUT' | 'GET' | 'DELETE';
 
 declare global {
@@ -11,7 +9,10 @@ declare global {
     };
   }
 }
+const apiPath:string = import.meta.env.VITE_API_BASE_URL;
 
+
+/*
 export const fetchDataArray = async <T>(
   path: string,
   dataStore: Writable<T[]>,
@@ -26,6 +27,7 @@ export const fetchDataArray = async <T>(
     loadingStore.set(false);
   }
 };
+*/
 
 export const fetchJson = <T>(
   relativePath: string,
@@ -57,12 +59,13 @@ const fetchInternal = <T>(
   body: any,
   mapper: (res: Response) => T | Promise<T>
 ): Promise<T> => {
+  console.log(apiPath + relativePath)
   return new Promise<T>((resolve, reject) => {
-    fetch(`${window.tool.location}api` + relativePath, {
+    fetch(apiPath + relativePath, {
       method: method,
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        Authorization: `Bearer ${window.tool.token}`
+        /*Authorization: `Bearer ${window.tool.token}`*/
       },
       body: body === undefined ? undefined : JSON.stringify(body)
     })

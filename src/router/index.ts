@@ -3,7 +3,7 @@ import LogIn from '@/pages/LogIn.vue';
 import Home from '@/pages/Home.vue';
 import auth from '@/services/auth.ts';
 
-auth.initializeAuthState();
+
 
 const routes = [
   { name: 'login', path: '/', component: LogIn },

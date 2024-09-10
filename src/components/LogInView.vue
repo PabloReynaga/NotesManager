@@ -1,53 +1,51 @@
 <script setup lang="ts">
-import type { authUser } from '@/types/authUser';
+import type { User } from '@/types/User';
 import { inject, ref } from 'vue';
 import auth from '@/services/auth';
 import router from '@/router';
+import { Client } from '../../api/Client';
 
 const dialogState: any = inject('dialogState');
 const warnMessage = ref<boolean>(false);
+const themeState: any = inject('themeState');
 
-const user = ref<authUser>({
-  name: '',
+const user = ref<User>({
+  userName: '',
   password: ''
 });
 
-const handleLogInEvent = async (user: authUser) => {
+const handleLogInEvent = async (user: User) => {
   if (user.name == '' || user.password == '') {
     warnMessage.value = true;
     return;
   }
   try {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: user.name, password: user.password })
-    });
-    const data = await response.json();
-    if (response.ok) {
-      auth.saveToken(data.token);
+    const resp = await Client.loginUser(user)
+    console.log(resp)
+    if (resp.isLogined) {
+      auth.authState.value = true;
+      localStorage.setItem('userId', resp.userId);
+      auth.saveToken(resp.token);
       await router.push('/home');
-      router.go();
     } else {
-      console.log(data.message);
+      console.log(resp.message);
     }
   } catch (error) {
+    console.log(error);
     errorMessage.value = 'An error occurred during login';
   }
 };
 </script>
 
 <template>
-  <div class="main-container">
+  <div class="main-container" :class="[themeState.isDark.value ? 'darkmodus-active' : '']" >
     <div class="content-container">
       <div class="title-container">
         <h1>Log In</h1>
       </div>
       <div class="input-field">
         <p class="sub-title">User Name</p>
-        <input v-model="user.name" class="input-element" type="email" />
+        <input v-model="user.userName" class="input-element" type="email" />
         <p class="sub-title">Password</p>
         <input v-model="user.password" class="input-element" type="password" />
       </div>
@@ -73,11 +71,9 @@ const handleLogInEvent = async (user: authUser) => {
   width: 100%;
   justify-content: center;
   margin: auto;
-  cursor: pointer;
   color: $black;
   text-align: left;
   z-index: 0;
-  backdrop-filter: blur(1px);
   background-color: $white;
   .content-container {
     text-align: center;
@@ -134,6 +130,10 @@ const handleLogInEvent = async (user: authUser) => {
       }
     }
   }
+}
+.darkmodus-active {
+  background-color: $black;
+  color: $white;
 }
 @keyframes register_view {
   0% {
