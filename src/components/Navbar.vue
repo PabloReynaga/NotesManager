@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 import auth from '@/services/auth';
+import router from '@/router';
 
 
 const themeState: any = inject('themeState');
@@ -13,13 +14,15 @@ const changeTheme = () => {
 <template>
   <div class="nav-bar" :class="[themeState.isDark.value ? 'nav-bar-darkmodus' : '']">
     <div class="title-container">
-      <h1 class="page-title">Notes Manager</h1>
+      <button class="nav-home-button" @click="router.push('/home')">
+        <h1 class="page-title">Notes Manager</h1>
+      </button>
     </div>
     <div class="switch-container">
       <div class="switch-button-container">
         <button class="switch-button" @click="changeTheme()"></button>
         <button class="log-out-button" v-if="auth.authState.value" @click="auth.removeToken('authToken')">
-          <img class="LogOutImg" src="/public/LogOutImg.png" alt="img" />
+          <img class="LogOutImg" src="/LogOutImg.png" alt="img" />
         </button>
       </div>
     </div>
@@ -33,10 +36,16 @@ const changeTheme = () => {
   height: 4rem;
   align-items: center;
   background-color: $primary;
+  .nav-home-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: .5rem;
+  }
   .page-title {
     font-size: 2rem;
     color: $black;
-    transform: translateX(1rem);
+    transform: translateX(.1rem);
   }
   .switch-container{
     display: flex;

@@ -8,22 +8,25 @@ export function useCards() {
 
   const createNote = async (NoteDTO: Note) => {
     await Client.createNote(NoteDTO)
-    await userNotes()
+    await getUserNotes()
   };
 
-  const userNotes = async () => {
+  const getUserNotes = async () => {
     const userId = localStorage.getItem('userId');
     const fetchedNotes = await Client.getAllNotes(userId);
     console.log(fetchedNotes);
     cardsList.value = fetchedNotes;
   }
 
-  const deleteNote = (id: string) => {
-    cardsList.value = cardsList.value.filter((note) => note.id !== id);
+  const deleteNote = async (id: string) => {
+    console.log(id);
+    await Client.deleteNote(id)
+    console.log(id);
+    await getUserNotes()
   };
 
   return {
-    userNotes,
+    getUserNotes,
     createNote,
     deleteNote,
     cardsList

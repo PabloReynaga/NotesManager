@@ -1,29 +1,17 @@
 <script setup lang="ts">
 import { inject, provide } from 'vue';
-import Card from '../components/Card.vue';
-import NewCard from '@/components/NewCard.vue';
+import MenuButton from '@/components/MenuButton.vue';
 import Dialog from '@/components/Dialog.vue';
 import { useCards } from '@/composables/useCards';
 import { useDialog } from '@/composables/useDialog';
-import { onMounted } from 'vue';
+import router from '@/router';
 
 
 const themeState: any = inject('themeState');
-
 const dialogState = useDialog();
 provide('dialogState', dialogState);
 const cardsState = useCards();
 provide('cardsState', cardsState);
-
-// Fetch the notes when the component is mounted
-onMounted(async () => {
-  await cardsState.userNotes();
-});
-const notesList = cardsState.cardsList;
-// Access the cardsList from the cardsState
-console.log(notesList.value)
-
-
 
 </script>
 
@@ -33,37 +21,41 @@ console.log(notesList.value)
     :class="[themeState.isDark.value ? 'darkmodus-active' : '']"
   >
     <div>
-      <p>Notes: {{notesList.length}}</p>
-      <p>Owner: ??</p>
     </div>
-    <NewCard></NewCard>
+    <div class="menu-buttons-container">
+      <MenuButton title="Own Notes"
+                  image-source="/NoteImg.png"
+                  @handle-click="router.push('/notes')">
+      </MenuButton>
+      <MenuButton title="Chat" image-source="/ChatImg.png"></MenuButton>
+      <MenuButton title="Shared Content" image-source="/SharedNoteImg.png"></MenuButton>
+      <MenuButton title="Settings" image-source="/SettingImg.png"></MenuButton>
+    </div>
+
     <Dialog
       :visible="dialogState.isVisible.value"
       @closeDialog="dialogState.closeDialog"
     />
-    <div class="cards-container">
-      <Card
-        v-for="item in notesList"
-        :key="item.id"
-        :title="item.title"
-        :content="item.content"
-        :color="item.color"
-        :id="item.id"
-        @delete-Note="cardsState.deleteNote(item.id)"
-      ></Card>
-    </div>
+
   </div>
 </template>
 
 <style lang="scss" scoped>
 .main-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: auto;
-  min-height: 100vh;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
   justify-content: center;
 }
+.menu-buttons-container{
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 
 .darkmodus-active {
   background-color: $black;

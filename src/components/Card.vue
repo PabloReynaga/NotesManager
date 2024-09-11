@@ -47,9 +47,9 @@ const deleteNote = () => {
 
 <style scoped lang="scss">
 .card {
-  height: 25rem;
-  width: 25rem;
-  margin: 3rem;
+  height: 20rem;
+  min-width: 18rem;
+  margin: 1rem;
   background-color: $white;
   border-radius: 0.3rem;
   .card-body {
@@ -67,7 +67,7 @@ const deleteNote = () => {
     }
     .content-container {
       display: flex;
-      height: 75%;
+      height: 65%;
       width: 95%;
       margin: auto;
       overflow-y: auto;
@@ -82,6 +82,7 @@ const deleteNote = () => {
         border-color: transparent;
         height: 1.5rem;
         width: 5rem;
+        margin-top: 0.5rem;
         margin-right: 0.4rem;
         cursor: pointer;
       }

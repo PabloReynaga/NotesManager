@@ -57,8 +57,8 @@ const handleLogInEvent = async (user: User) => {
         No value could be empty!
       </p>
       <div class="buttons-container">
-        <button class="button" @click="dialogState.switchDialog()">Sign Up</button>
-        <button class="button" @click="handleLogInEvent(user)">Enter</button>
+        <button class="button first" @click="dialogState.switchDialog()">Sign Up</button>
+        <button class="button second" @click="handleLogInEvent(user)">Accept</button>
       </div>
     </div>
   </div>
@@ -116,24 +116,37 @@ const handleLogInEvent = async (user: User) => {
     height: auto; /* Alternatively, you can use a fixed height if preferred */
   }
   .buttons-container {
-    float: right;
-    .button {
-      border-radius: 0.5rem;
-      border-color: transparent;
-      height: 1.5rem;
-      width: 4.5rem;
-      margin-right: 1rem;
-      cursor: pointer;
+    width: 100%;
+    display: flex;
+    .first{
+      float: left;
+      background: transparent;
+      font-size: .6rem;
+    }
+    .second{
+      margin-left: 16%;
       &:hover {
         background-color: darken(rgb(212, 193, 185), 10%);
         transition: 0.3s ease;
       }
+    }
+    .button {
+      text-decoration-line: underline ;
+      border-radius: 0.5rem;
+      border-color: transparent;
+      height: 1.5rem;
+      width: 4.5rem;
+      cursor: pointer;
+
     }
   }
 }
 .darkmodus-active {
   background-color: $black;
   color: $white;
+  .first{
+    color: white;
+  }
 }
 @keyframes register_view {
   0% {

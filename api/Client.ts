@@ -21,7 +21,8 @@ export class Client {
     return await fetchJson('/updateNote', 'POST', note);
   }
   static async deleteNote(noteId:string){
-    return await fetchJson(`/deleteNote${noteId}`, 'DELETE');
+    console.log(noteId);
+    return await fetchJson(`/deleteNote/${noteId}`, 'DELETE');
   }
   static async getAllNotes(id: string){
     return await fetchJson(`/getAllNotes/${id}`,'GET')

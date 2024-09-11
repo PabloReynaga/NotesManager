@@ -95,7 +95,7 @@ const resetNoteDTO = () => {
   border-color: transparent;
   border-radius: 0.4rem;
   height: 30rem;
-  width: 28rem;
+  width: 22rem;
 }
 .dialog-darkmodus {
   background-color: $darkmodus-navbar;
@@ -112,7 +112,7 @@ const resetNoteDTO = () => {
 .card {
   display: flex;
   height: 25rem;
-  width: 28rem;
+  width: 100%;
   justify-content: center;
   margin: auto;
   cursor: pointer;

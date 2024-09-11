@@ -59,8 +59,8 @@ const fetchInternal = <T>(
   body: any,
   mapper: (res: Response) => T | Promise<T>
 ): Promise<T> => {
-  console.log(apiPath + relativePath)
   return new Promise<T>((resolve, reject) => {
+    console.log(apiPath + relativePath)
     fetch(apiPath + relativePath, {
       method: method,
       headers: {

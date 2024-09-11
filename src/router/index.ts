@@ -2,13 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LogIn from '@/pages/LogIn.vue';
 import Home from '@/pages/Home.vue';
 import auth from '@/services/auth.ts';
-
+import Notes from '@/pages/Notes.vue';
 
 
 const routes = [
   { name: 'login', path: '/', component: LogIn },
-  { name: 'home', path: '/home', component: Home, meta: { authRequired: true } }
-];
+  { name: 'home', path: '/home', component: Home, meta: { authRequired: true } },
+  { name: 'notes', path: '/notes', component: Notes, meta: { authRequired: true } }];
 
 const router = createRouter({
   history: createWebHistory(),
