@@ -16,11 +16,11 @@ const getToken = (tokenKey: string) => {
 
 // Remove JWT from cookie
 const removeToken = (tokenKey: string) => {
-  const resp= Cookies.get(tokenKey);
-  if(resp){
+  const resp = Cookies.get(tokenKey);
+  if (resp) {
     Cookies.remove(tokenKey);
     localStorage.removeItem('userId');
-    router.go()
+    router.go();
   }
 };
 

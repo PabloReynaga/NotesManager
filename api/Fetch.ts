@@ -9,8 +9,7 @@ declare global {
     };
   }
 }
-const apiPath:string = import.meta.env.VITE_API_BASE_URL;
-
+const apiPath: string = import.meta.env.VITE_API_BASE_URL;
 
 /*
 export const fetchDataArray = async <T>(
@@ -60,11 +59,11 @@ const fetchInternal = <T>(
   mapper: (res: Response) => T | Promise<T>
 ): Promise<T> => {
   return new Promise<T>((resolve, reject) => {
-    console.log(apiPath + relativePath)
+    console.log(apiPath + relativePath);
     fetch(apiPath + relativePath, {
       method: method,
       headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
+        'Content-Type': 'application/json;charset=UTF-8'
         /*Authorization: `Bearer ${window.tool.token}`*/
       },
       body: body === undefined ? undefined : JSON.stringify(body)

@@ -29,7 +29,7 @@ const deleteNote = () => {
 };
 </script>
 <template>
-  <div class="card">
+  <div class="card content-container">
     <div class="card-body">
       <div class="title-container">
         <h1 class="title">{{ props.title }}</h1>
@@ -50,7 +50,6 @@ const deleteNote = () => {
   height: 20rem;
   min-width: 18rem;
   margin: 1rem;
-  background-color: $white;
   border-radius: 0.3rem;
   .card-body {
     height: 100%;

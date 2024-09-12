@@ -11,10 +11,9 @@ const NoteDTO = ref<Note>({ userId: '', title: '', color: '', content: '' });
 const inputChecker = ref<boolean>(false);
 
 const createNote = (NoteDto: Note) => {
-
   NoteDto.userId = localStorage.getItem('userId');
-  if(NoteDto.userId == null){
-    throw new Error('UserID not found.')
+  if (NoteDto.userId == null) {
+    throw new Error('UserID not found.');
   }
   if (
     NoteDTO.value.content != '' &&
@@ -49,17 +48,13 @@ const resetNoteDTO = () => {
     :class="[themeState.isDark.value ? 'dialog-darkmodus' : '']"
   >
     <div class="card">
-      <div class="content-container">
+      <div class="container-content">
         <div class="title-container">
           <h1>Create new card!</h1>
         </div>
         <div class="input-field">
           <p class="sub-title">Select title:</p>
-          <input
-            v-model="NoteDTO.title"
-            class="input-element"
-            type="text"
-          />
+          <input v-model="NoteDTO.title" class="input-element" type="text" />
         </div>
         <div class="input-field">
           <p class="sub-title">Note:</p>
@@ -95,10 +90,9 @@ const resetNoteDTO = () => {
   border-color: transparent;
   border-radius: 0.4rem;
   height: 30rem;
-  width: 22rem;
+  width: 20rem;
 }
 .dialog-darkmodus {
-  background-color: $darkmodus-navbar;
   color: $white;
   .message-empty-field {
     color: $white;

@@ -20,8 +20,8 @@ const handleLogInEvent = async (user: User) => {
     return;
   }
   try {
-    const resp = await Client.loginUser(user)
-    console.log(resp)
+    const resp = await Client.loginUser(user);
+    console.log(resp);
     if (resp.isLogined) {
       auth.authState.value = true;
       localStorage.setItem('userId', resp.userId);
@@ -38,7 +38,7 @@ const handleLogInEvent = async (user: User) => {
 </script>
 
 <template>
-  <div class="main-container" :class="[themeState.isDark.value ? 'darkmodus-active' : '']" >
+  <div class="main-container">
     <div class="content-container">
       <div class="title-container">
         <h1>Log In</h1>
@@ -57,7 +57,9 @@ const handleLogInEvent = async (user: User) => {
         No value could be empty!
       </p>
       <div class="buttons-container">
-        <button class="button first" @click="dialogState.switchDialog()">Sign Up</button>
+        <button class="button first" @click="dialogState.switchDialog()">
+          Sign Up
+        </button>
         <button class="button second" @click="handleLogInEvent(user)">Accept</button>
       </div>
     </div>
@@ -74,7 +76,7 @@ const handleLogInEvent = async (user: User) => {
   color: $black;
   text-align: left;
   z-index: 0;
-  background-color: $white;
+
   .content-container {
     text-align: center;
     margin: auto;
@@ -109,7 +111,7 @@ const handleLogInEvent = async (user: User) => {
     opacity: 0;
   }
   .warn-message-field-enable {
-    color: $light-red;
+    color: $darkmodus-navbar;
     transition: 0.5s ease;
     margin-bottom: 1rem;
     opacity: 1;
@@ -118,12 +120,12 @@ const handleLogInEvent = async (user: User) => {
   .buttons-container {
     width: 100%;
     display: flex;
-    .first{
+    .first {
       float: left;
       background: transparent;
-      font-size: .6rem;
+      font-size: 0.6rem;
     }
-    .second{
+    .second {
       margin-left: 16%;
       &:hover {
         background-color: darken(rgb(212, 193, 185), 10%);
@@ -131,23 +133,16 @@ const handleLogInEvent = async (user: User) => {
       }
     }
     .button {
-      text-decoration-line: underline ;
+      text-decoration-line: underline;
       border-radius: 0.5rem;
       border-color: transparent;
       height: 1.5rem;
       width: 4.5rem;
       cursor: pointer;
-
     }
   }
 }
-.darkmodus-active {
-  background-color: $black;
-  color: $white;
-  .first{
-    color: white;
-  }
-}
+
 @keyframes register_view {
   0% {
     opacity: 1;

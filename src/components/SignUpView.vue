@@ -8,13 +8,12 @@ import { Client } from '../../api/Client';
 const showWarnMessage = ref<boolean>(false);
 const warnMessage = ref<string>('');
 const dialogState: any = inject('dialogState');
-const themeState: any = inject('themeState');
 const passwordVerification = ref<string>('');
 
 const user = ref<NewUser>({
   userName: '',
   email: '',
-  password: '',
+  password: ''
 });
 
 const handleSignUpEvent = async (user: NewUser) => {
@@ -34,8 +33,8 @@ const handleSignUpEvent = async (user: NewUser) => {
     return;
   }
   try {
-    const resp = await Client.createUser(user)
-    console.log(resp)
+    const resp = await Client.createUser(user);
+    console.log(resp);
     if (resp.isLogined) {
       localStorage.setItem('userId', resp.userId);
       auth.authState.value = true;
@@ -51,7 +50,7 @@ const handleSignUpEvent = async (user: NewUser) => {
 </script>
 
 <template>
-  <div class="main-container" :class="[themeState?.isDark.value ? 'darkmodus-active' : '']">
+  <div class="main-container">
     <div class="content-container">
       <div class="title-container">
         <h1>Sign Up</h1>
@@ -80,8 +79,12 @@ const handleSignUpEvent = async (user: NewUser) => {
         {{ warnMessage }}
       </p>
       <div class="buttons-container">
-        <button class="first button" @click="dialogState.switchDialog">Log In</button>
-        <button class="second button" @click="handleSignUpEvent(user)">Accept</button>
+        <button class="first button" @click="dialogState.switchDialog">
+          Log In
+        </button>
+        <button class="second button" @click="handleSignUpEvent(user)">
+          Accept
+        </button>
       </div>
     </div>
   </div>
@@ -98,7 +101,6 @@ const handleSignUpEvent = async (user: NewUser) => {
   text-align: left;
   z-index: 0;
   backdrop-filter: blur(1px);
-  background-color: $white;
   .content-container {
     text-align: center;
     margin: auto;
@@ -133,7 +135,7 @@ const handleSignUpEvent = async (user: NewUser) => {
     opacity: 0;
   }
   .warn-message-field-enable {
-    color: $light-red;
+    color: $darkmodus-navbar;
     transition: 0.5s ease;
     margin-bottom: 0.5rem;
     opacity: 1;
@@ -142,12 +144,12 @@ const handleSignUpEvent = async (user: NewUser) => {
   .buttons-container {
     width: 100%;
     display: flex;
-    .first{
+    .first {
       float: left;
       background: transparent;
-      font-size: .6rem;
+      font-size: 0.6rem;
     }
-    .second{
+    .second {
       margin-left: 12%;
       &:hover {
         background-color: darken(rgb(212, 193, 185), 10%);
@@ -155,21 +157,13 @@ const handleSignUpEvent = async (user: NewUser) => {
       }
     }
     .button {
-      text-decoration-line: underline ;
+      text-decoration-line: underline;
       border-radius: 0.5rem;
       border-color: transparent;
       height: 1.5rem;
       width: 4.5rem;
       cursor: pointer;
-
     }
-  }
-}
-.darkmodus-active {
-  background-color: $black;
-  color: $white;
-  .first{
-    color: white;
   }
 }
 @keyframes register_view {

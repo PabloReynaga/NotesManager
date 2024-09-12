@@ -6,8 +6,6 @@ import { inject, provide } from 'vue';
 
 const dialogState = useDialog();
 provide('dialogState', dialogState);
-
-
 </script>
 
 <template>
@@ -15,6 +13,4 @@ provide('dialogState', dialogState);
   <SignUpView v-else />
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

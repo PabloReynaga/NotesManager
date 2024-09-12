@@ -3,7 +3,6 @@ import { inject } from 'vue';
 import auth from '@/services/auth';
 import router from '@/router';
 
-
 const themeState: any = inject('themeState');
 
 const changeTheme = () => {
@@ -21,7 +20,11 @@ const changeTheme = () => {
     <div class="switch-container">
       <div class="switch-button-container">
         <button class="switch-button" @click="changeTheme()"></button>
-        <button class="log-out-button" v-if="auth.authState.value" @click="auth.removeToken('authToken')">
+        <button
+          class="log-out-button"
+          v-if="auth.authState.value"
+          @click="auth.removeToken('authToken')"
+        >
           <img class="LogOutImg" src="/LogOutImg.png" alt="img" />
         </button>
       </div>
@@ -36,18 +39,18 @@ const changeTheme = () => {
   height: 4rem;
   align-items: center;
   background-color: $primary;
-  .nav-home-button{
+  .nav-home-button {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    padding: .5rem;
+    padding: 0.5rem;
   }
   .page-title {
     font-size: 2rem;
     color: $black;
-    transform: translateX(.1rem);
+    transform: translateX(0.1rem);
   }
-  .switch-container{
+  .switch-container {
     display: flex;
     width: 10rem;
     justify-content: right;
@@ -68,25 +71,23 @@ const changeTheme = () => {
         border: none;
         cursor: pointer;
         transition: 0.5s ease-in-out;
-
       }
       .button-active {
         float: right;
       }
-      .log-out-button{
+      .log-out-button {
         position: absolute;
-        font-size: .6rem;
+        font-size: 0.6rem;
         background: transparent;
         border: none;
         right: -1rem;
-        bottom: -3.0rem;
+        bottom: -3rem;
         cursor: pointer;
-        .LogOutImg{
+        .LogOutImg {
           height: 1.2rem;
         }
       }
     }
-
   }
 }
 
