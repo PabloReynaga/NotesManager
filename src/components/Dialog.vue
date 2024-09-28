@@ -1,44 +1,11 @@
 <script setup lang="ts">
-import { ref, inject, type Ref } from 'vue';
-import type { Note } from '@/types/Note';
-import { Client } from '../../api/Client';
+import { inject } from 'vue';
 
-const cardsState: any = inject('cardsState');
 const themeState: any = inject('themeState');
 const dialogState: any = inject('dialogState');
 
-const NoteDTO = ref<Note>({ userId: '', title: '', color: '', content: '' });
-const inputChecker = ref<boolean>(false);
+const NoteDTO = dialogState.NoteDTO;
 
-const createNote = (NoteDto: Note) => {
-  NoteDto.userId = localStorage.getItem('userId');
-  if (NoteDto.userId == null) {
-    throw new Error('UserID not found.');
-  }
-  if (
-    NoteDTO.value.content != '' &&
-    NoteDTO.value.color != '' &&
-    NoteDTO.value.title != ''
-  ) {
-    cardsState.createNote(NoteDto);
-    resetNoteDTO();
-    inputChecker.value = false;
-    dialogState.closeDialog();
-  } else {
-    inputChecker.value = true;
-  }
-};
-
-const closeDialog = () => {
-  inputChecker.value = false;
-  dialogState.closeDialog();
-};
-
-const resetNoteDTO = () => {
-  NoteDTO.value.title = '';
-  NoteDTO.value.color = '';
-  NoteDTO.value.content = '';
-};
 </script>
 
 <template>
@@ -68,13 +35,12 @@ const resetNoteDTO = () => {
             <option>yellow</option>
           </select>
         </div>
-        <p class="message-empty-field" v-if="inputChecker">
+        <p class="message-empty-field" v-if="dialogState.inputValidator.value">
           No value could be empty!
         </p>
         <div class="buttons-container">
-          <button class="button" @click="createNote(NoteDTO)">Create</button>
-          <button class="button" @click="closeDialog">Close</button>
-          <button class="button">Socket</button>
+          <button class="button" @click="dialogState.createNote(NoteDTO)">Create</button>
+          <button class="button" @click="dialogState.closeDialog">Close</button>
         </div>
       </div>
     </div>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue';
+import { inject, onMounted, provide, ref } from 'vue';
 import { useCards } from '@/composables/useCards';
 import Card from '@/components/Card.vue';
-import { inject } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import Dialog from '@/components/Dialog.vue';
 
@@ -12,11 +11,14 @@ provide('cardsState', cardsState);
 const dialogState = useDialog();
 provide('dialogState', dialogState);
 
+const fetchState = inject('fetchState');
+
 onMounted(async () => {
-  await cardsState.getUserNotes();
+  await fetchState.getUserNotes();
 });
-const notesList = cardsState.cardsList;
-const themeState: any = inject('themeState');
+
+const notesList = fetchState.cardsList;
+
 </script>
 
 <template>

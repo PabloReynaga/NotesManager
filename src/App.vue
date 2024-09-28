@@ -3,6 +3,10 @@ import Navbar from '@/components/Navbar.vue';
 import { useTheme } from '@/composables/useTheme';
 import { provide, ref } from 'vue';
 import { watch } from 'vue';
+import { useFetch } from '@/composables/useFetch';
+
+const fetchState = useFetch()
+provide('fetchState', fetchState)
 
 const themeState = useTheme();
 provide('themeState', themeState);

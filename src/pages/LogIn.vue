@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import LogInView from '@/components/LogInView.vue';
-import SignUpView from '@/components/SignUpView.vue';
+import LogInView from '@/views/LogInView.vue';
+import SignUpView from '@/views/SignUpView.vue';
 import { useDialog } from '@/composables/useDialog';
 import { inject, provide } from 'vue';
+import { useLogIn } from '@/composables/useLogIn';
 
-const dialogState = useDialog();
-provide('dialogState', dialogState);
+const logInState = useLogIn();
+provide('logInState', logInState);
 </script>
 
 <template>
-  <LogInView v-if="dialogState.logInVisible.value" />
+  <LogInView v-if="logInState.loginIsVisible.value" />
   <SignUpView v-else />
 </template>
 

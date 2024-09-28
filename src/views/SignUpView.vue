@@ -1,37 +1,49 @@
 <script setup lang="ts">
-import type { User } from '@/types/User';
+import type { NewUser } from '@/types/User';
 import { inject, ref } from 'vue';
-import auth from '@/services/auth';
 import router from '@/router';
+import auth from '../services/auth.ts';
 import { Client } from '../../api/Client';
 
-const dialogState: any = inject('dialogState');
-const warnMessage = ref<boolean>(false);
-const themeState: any = inject('themeState');
+const showWarnMessage = ref<boolean>(false);
+const warnMessage = ref<string>('');
+const logInState: any = inject('logInState');
+const passwordVerification = ref<string>('');
 
-const user = ref<User>({
+const user = ref<NewUser>({
   userName: '',
+  email: '',
   password: ''
 });
 
-const handleLogInEvent = async (user: User) => {
-  if (user.name == '' || user.password == '') {
-    warnMessage.value = true;
+const handleSignUpEvent = async (user: NewUser) => {
+  if (
+    user.userName == '' ||
+    user.email == '' ||
+    user.password == '' ||
+    passwordVerification.value == ''
+  ) {
+    warnMessage.value = 'No value could be empty.';
+    showWarnMessage.value = true;
+    return;
+  }
+  if (user.password !== passwordVerification.value) {
+    warnMessage.value = 'Passwords do not match.';
+    showWarnMessage.value = true;
     return;
   }
   try {
-    const resp = await Client.loginUser(user);
+    const resp = await Client.createUser(user);
     console.log(resp);
     if (resp.isLogined) {
-      auth.authState.value = true;
       localStorage.setItem('userId', resp.userId);
+      auth.authState.value = true;
       auth.saveToken(resp.token);
       await router.push('/home');
     } else {
       console.log(resp.message);
     }
   } catch (error) {
-    console.log(error);
     errorMessage.value = 'An error occurred during login';
   }
 };
@@ -41,26 +53,38 @@ const handleLogInEvent = async (user: User) => {
   <div class="main-container">
     <div class="content-container">
       <div class="title-container">
-        <h1>Log In</h1>
+        <h1>Sign Up</h1>
       </div>
       <div class="input-field">
         <p class="sub-title">User Name</p>
         <input v-model="user.userName" class="input-element" type="email" />
+        <p class="sub-title">Email</p>
+        <input v-model="user.email" class="input-element" type="email" />
         <p class="sub-title">Password</p>
         <input v-model="user.password" class="input-element" type="password" />
+        <p class="sub-title">Repeat Password</p>
+        <input
+          v-model="passwordVerification"
+          class="input-element"
+          type="password"
+        />
       </div>
       <p
         :class="
-          warnMessage ? 'warn-message-field-enable' : 'warn-message-field-disable'
+          showWarnMessage
+            ? 'warn-message-field-enable'
+            : 'warn-message-field-disable'
         "
       >
-        No value could be empty!
+        {{ warnMessage }}
       </p>
       <div class="buttons-container">
-        <button class="button first" @click="dialogState.switchDialog()">
-          Sign Up
+        <button class="first button" @click="logInState.switchView">
+          Log In
         </button>
-        <button class="button second" @click="handleLogInEvent(user)">Accept</button>
+        <button class="second button" @click="handleSignUpEvent(user)">
+          Accept
+        </button>
       </div>
     </div>
   </div>
@@ -76,12 +100,12 @@ const handleLogInEvent = async (user: User) => {
   color: $black;
   text-align: left;
   z-index: 0;
-
+  backdrop-filter: blur(1px);
   .content-container {
     text-align: center;
     margin: auto;
-    min-width: 20rem;
-    min-height: 18rem;
+    min-width: 18rem;
+    height: 26rem;
     z-index: 100;
     border-radius: 0.8rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -113,7 +137,7 @@ const handleLogInEvent = async (user: User) => {
   .warn-message-field-enable {
     color: $darkmodus-navbar;
     transition: 0.5s ease;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     opacity: 1;
     height: auto; /* Alternatively, you can use a fixed height if preferred */
   }
@@ -126,7 +150,7 @@ const handleLogInEvent = async (user: User) => {
       font-size: 0.6rem;
     }
     .second {
-      margin-left: 16%;
+      margin-left: 12%;
       &:hover {
         background-color: darken(rgb(212, 193, 185), 10%);
         transition: 0.3s ease;
@@ -142,7 +166,6 @@ const handleLogInEvent = async (user: User) => {
     }
   }
 }
-
 @keyframes register_view {
   0% {
     opacity: 1;
