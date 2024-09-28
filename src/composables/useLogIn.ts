@@ -1,14 +1,14 @@
 import { ref } from 'vue';
 
 export function useLogIn() {
-  const loginIsVisible = ref<boolean>(true)
+  const loginIsVisible = ref<boolean>(true);
 
-  const switchView = () =>{
-    loginIsVisible.value = !loginIsVisible.value
-  }
+  const switchView = () => {
+    loginIsVisible.value = !loginIsVisible.value;
+  };
 
-  return{
+  return {
     switchView,
     loginIsVisible
-  }
+  };
 }

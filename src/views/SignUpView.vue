@@ -79,9 +79,7 @@ const handleSignUpEvent = async (user: NewUser) => {
         {{ warnMessage }}
       </p>
       <div class="buttons-container">
-        <button class="first button" @click="logInState.switchView">
-          Log In
-        </button>
+        <button class="first button" @click="logInState.switchView">Log In</button>
         <button class="second button" @click="handleSignUpEvent(user)">
           Accept
         </button>

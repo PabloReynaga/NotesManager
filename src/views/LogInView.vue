@@ -5,7 +5,6 @@ import auth from '@/services/auth';
 import router from '@/router';
 import { Client } from '../../api/Client';
 
-
 const warnMessage = ref<boolean>(false);
 const logInState: any = inject('logInState');
 

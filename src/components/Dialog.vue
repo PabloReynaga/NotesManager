@@ -5,7 +5,6 @@ const themeState: any = inject('themeState');
 const dialogState: any = inject('dialogState');
 
 const NoteDTO = dialogState.NoteDTO;
-
 </script>
 
 <template>
@@ -39,7 +38,9 @@ const NoteDTO = dialogState.NoteDTO;
           No value could be empty!
         </p>
         <div class="buttons-container">
-          <button class="button" @click="dialogState.createNote(NoteDTO)">Create</button>
+          <button class="button" @click="dialogState.createNote(NoteDTO)">
+            Create
+          </button>
           <button class="button" @click="dialogState.closeDialog">Close</button>
         </div>
       </div>

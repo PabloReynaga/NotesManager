@@ -6,7 +6,7 @@ export function useDialog() {
   const isVisible = ref<boolean>(false);
   const dialogElement = ref<HTMLDialogElement | null>(null);
   const NoteDTO = ref<Note>({ userId: '', title: '', color: '', content: '' });
-  const inputValidator = ref<boolean>(false)
+  const inputValidator = ref<boolean>(false);
 
   const fetchState = inject('fetchState');
 
@@ -18,33 +18,28 @@ export function useDialog() {
   const closeDialog = () => {
     isVisible.value = false;
     dialogElement.value?.close();
-    resetNoteDTO()
+    resetNoteDTO();
   };
 
-  const createNote = async (NoteDTO: Note)=>{
+  const createNote = async (NoteDTO: Note) => {
     NoteDTO.userId = localStorage.getItem('userId');
     console.log(NoteDTO);
     if (NoteDTO.userId == null) {
       throw new Error('UserID not found.');
     }
-    if (
-      NoteDTO.content != '' &&
-      NoteDTO.color != '' &&
-      NoteDTO.title != ''
-    ) {
+    if (NoteDTO.content != '' && NoteDTO.color != '' && NoteDTO.title != '') {
       await fetchState.createNote(NoteDTO);
       inputValidator.value = false;
-      resetNoteDTO()
+      resetNoteDTO();
       closeDialog();
       console.log('createNote done');
-
     } else {
       inputValidator.value = true;
     }
   };
 
   const resetNoteDTO = () => {
-    NoteDTO.value = { userId: '', title: '', color: '', content: '' }
+    NoteDTO.value = { userId: '', title: '', color: '', content: '' };
   };
 
   return {
@@ -55,6 +50,5 @@ export function useDialog() {
     createNote,
     NoteDTO,
     inputValidator
-
   };
 }

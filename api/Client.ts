@@ -1,4 +1,4 @@
-import { fetchJson, fetchResponse } from './Fetch';
+import { fetchJson } from './Fetch';
 import type { NewUser, User } from '../src/types/User';
 import type { Note } from '@/types/Note';
 

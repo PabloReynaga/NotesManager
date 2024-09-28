@@ -12,16 +12,14 @@ export function useFetch() {
     cardsList.value = fetchedNotes;
   };
 
-  const createNote = async (NoteDTO: Note )=>{
+  const createNote = async (NoteDTO: Note) => {
     await Client.createNote(NoteDTO);
     await getUserNotes();
-  }
+  };
 
-
-  return{
+  return {
     createNote,
     getUserNotes,
     cardsList
-  }
-
+  };
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, provide, ref } from 'vue';
+import { inject, onMounted, provide } from 'vue';
 import { useCards } from '@/composables/useCards';
 import Card from '@/components/Card.vue';
 import { useDialog } from '@/composables/useDialog';
@@ -18,7 +18,6 @@ onMounted(async () => {
 });
 
 const notesList = fetchState.cardsList;
-
 </script>
 
 <template>
