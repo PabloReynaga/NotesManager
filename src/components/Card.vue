@@ -22,10 +22,13 @@ const props = defineProps({
   }
 });
 
-const emits = defineEmits(['edit-Card', 'delete-Note']);
+const emits = defineEmits(['update-Note', 'delete-Note']);
 
 const deleteNote = () => {
   emits('delete-Note');
+};
+const updateNote = () => {
+  emits('update-Note');
 };
 </script>
 <template>
@@ -38,7 +41,7 @@ const deleteNote = () => {
         <p>{{ props.content }}</p>
       </div>
       <div class="buttons-container">
-        <button class="buttons">Edit</button>
+        <button class="buttons" @click="updateNote">Edit</button>
         <button class="buttons" @click="deleteNote">Delete</button>
       </div>
     </div>

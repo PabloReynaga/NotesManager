@@ -38,8 +38,15 @@ const NoteDTO = dialogState.NoteDTO;
           No value could be empty!
         </p>
         <div class="buttons-container">
-          <button class="button" @click="dialogState.createNote(NoteDTO)">
+          <button
+            class="button"
+            @click="dialogState.createNote(NoteDTO)"
+            v-if="!dialogState.enableEditButton.value"
+          >
             Create
+          </button>
+          <button class="button" v-else @click="dialogState.updateNote(NoteDTO)">
+            Edit
           </button>
           <button class="button" @click="dialogState.closeDialog">Close</button>
         </div>

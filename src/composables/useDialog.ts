@@ -1,12 +1,14 @@
 import { ref } from 'vue';
 import type { Note } from '@/types/Note';
 import { inject } from 'vue';
+import { Client } from '../../api/Client';
 
 export function useDialog() {
   const isVisible = ref<boolean>(false);
   const dialogElement = ref<HTMLDialogElement | null>(null);
   const NoteDTO = ref<Note>({ userId: '', title: '', color: '', content: '' });
   const inputValidator = ref<boolean>(false);
+  const enableEditButton = ref<boolean>(false);
 
   const fetchState = inject('fetchState');
 
@@ -28,14 +30,18 @@ export function useDialog() {
       throw new Error('UserID not found.');
     }
     if (NoteDTO.content != '' && NoteDTO.color != '' && NoteDTO.title != '') {
+      console.log(NoteDTO);
       await fetchState.createNote(NoteDTO);
       inputValidator.value = false;
       resetNoteDTO();
       closeDialog();
-      console.log('createNote done');
     } else {
       inputValidator.value = true;
     }
+  };
+  const updateNote = async (note: Note) => {
+    await Client.updateNote(note);
+    closeDialog();
   };
 
   const resetNoteDTO = () => {
@@ -49,6 +55,8 @@ export function useDialog() {
     dialogElement,
     createNote,
     NoteDTO,
-    inputValidator
+    inputValidator,
+    enableEditButton,
+    updateNote
   };
 }

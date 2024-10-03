@@ -32,3 +32,4 @@ coverage
 ./api
 .env
 server/*
+run.sh

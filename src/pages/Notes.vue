@@ -4,6 +4,7 @@ import { useCards } from '@/composables/useCards';
 import Card from '@/components/Card.vue';
 import { useDialog } from '@/composables/useDialog';
 import Dialog from '@/components/Dialog.vue';
+import type { Note } from '@/types/Note';
 
 const cardsState = useCards();
 provide('cardsState', cardsState);
@@ -18,11 +19,23 @@ onMounted(async () => {
 });
 
 const notesList = fetchState.cardsList;
+
+const updateNote = (note: Note) => {
+  dialogState.enableEditButton.value = true;
+  dialogState.NoteDTO.value = note;
+  dialogState.openDialog();
+};
 </script>
 
 <template>
   <div class="main-container">
-    <button class="add-new-card-button" @click="dialogState.openDialog()">
+    <button
+      class="add-new-card-button"
+      @click="
+        dialogState.openDialog();
+        dialogState.enableEditButton.value = false;
+      "
+    >
       <p>Create a new note!</p>
     </button>
 
@@ -38,6 +51,7 @@ const notesList = fetchState.cardsList;
       :color="item.color"
       :id="item.id"
       @delete-Note="cardsState.deleteNote(item._id)"
+      @update-note="updateNote(item)"
     ></Card>
   </div>
 </template>
