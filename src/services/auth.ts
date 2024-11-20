@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { ref } from 'vue';
 import router from '@/router';
 
-const authState: boolean = ref(false);
+const authState = ref<boolean>(false);
 
 // Save JWT to cookie
 const saveToken = (token: string) => {

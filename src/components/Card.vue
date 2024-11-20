@@ -65,12 +65,16 @@ const updateNote = () => {
       .title {
         padding: 1rem;
         color: $black;
+        width: 16rem;
+        white-space: nowrap; /* Prevent text from wrapping to the next line */
+        overflow: hidden; /* Hide the overflowed text */
+        text-overflow: ellipsis; /* Add '...' at the end */
       }
     }
     .content-container {
       display: flex;
       height: 65%;
-      width: 95%;
+      width: 16rem;
       margin: auto;
       overflow-y: auto;
       word-break: break-all;

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
+import cardColorOptions from '@/utils/utils';
 
 const themeState: any = inject('themeState');
 const dialogState: any = inject('dialogState');
@@ -24,14 +25,23 @@ const NoteDTO = dialogState.NoteDTO;
         </div>
         <div class="input-field">
           <p class="sub-title">Note:</p>
-          <textarea v-model="NoteDTO.content" type="text"></textarea>
+          <textarea
+            v-model="NoteDTO.content"
+            type="text"
+            style="font-family: Arial"
+          ></textarea>
         </div>
         <div class="input-field">
           <p class="sub-title">Select a color:</p>
           <select v-model="NoteDTO.color">
-            <option>#ff0066</option>
-            <option>blue</option>
-            <option>yellow</option>
+            <option
+              v-for="(option, index) in cardColorOptions.cardColorOptions"
+              :key="index"
+              :style="{ color: option.value, textAlign: 'center' }"
+              :value="option.value"
+            >
+              {{ option.name }}
+            </option>
           </select>
         </div>
         <p class="message-empty-field" v-if="dialogState.inputValidator.value">

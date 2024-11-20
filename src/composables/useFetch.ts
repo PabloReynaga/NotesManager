@@ -7,9 +7,12 @@ export function useFetch() {
 
   const getUserNotes = async () => {
     const userId = localStorage.getItem('userId');
-    const fetchedNotes = await Client.getAllNotes(userId);
+    if (!userId) {
+      throw new Error('User ID not found in localStorage.');
+    }
+    const fetchedNotes: any = await Client.getAllNotes(userId);
     console.log(fetchedNotes);
-    cardsList.value = fetchedNotes;
+    cardsList.value = fetchedNotes.reverse();
   };
 
   const createNote = async (NoteDTO: Note) => {

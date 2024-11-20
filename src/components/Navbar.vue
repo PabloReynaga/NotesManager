@@ -4,10 +4,6 @@ import auth from '@/services/auth';
 import router from '@/router';
 
 const themeState: any = inject('themeState');
-
-const changeTheme = () => {
-  themeState.changeTheme();
-};
 </script>
 
 <template>
@@ -19,7 +15,7 @@ const changeTheme = () => {
     </div>
     <div class="switch-container">
       <div class="switch-button-container">
-        <button class="switch-button" @click="changeTheme()"></button>
+        <button class="switch-button" @click="themeState.changeTheme()"></button>
         <button
           class="log-out-button"
           v-if="auth.authState.value"
